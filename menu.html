@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu – Dilan's Pizzeria &amp; Café</title>
+  <meta name="description" content="Hele menuen hos Dilan's Pizzeria & Café på Jagtvej 92. Pizza, durum, burgere, pasta og meget mere. Bestil til afhentning.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="menu.css">
+</head>
+<body class="menu-page">
+  <div class="frame">
+
+    <header class="nav">
+      <a class="nav__logo" href="index.html" aria-label="Dilan's – til forsiden">
+        <span class="logo-word">Dilan<span class="o">'s</span></span>
+        <small>Pizzeria &amp; Café</small>
+      </a>
+      <nav class="nav__links" aria-label="Hovedmenu">
+        <a href="index.html">Forside</a>
+        <a href="menu.html" aria-current="page">Menu</a>
+        <a href="index.html#saadan">Takeaway</a>
+        <a href="index.html#find-os">Find os</a>
+      </nav>
+      <a class="btn btn--orange nav__cta" href="tel:+4535371909">Ring og bestil</a>
+    </header>
+
+    <main>
+      <section class="mhero">
+        <h1 class="mhero__title">MENU<span class="o">EN</span></h1>
+        <img class="mhero__pizza" data-spin src="assets/img/pizza-parma.webp" alt="">
+        <div class="mhero__info">
+          <p>Læg retterne i kurven, og bestil til afhentning på Jagtvej 92. Vi leverer ikke, men maden er klar, når du kommer.</p>
+          <p class="hero__hours"><span class="dot"></span> Åbent hver dag 11.00–23.00</p>
+        </div>
+      </section>
+
+      <div class="catbar" id="catbar">
+        <div class="catbar__inner">
+          <label class="search">
+            <span class="sr-only">Søg i menuen</span>
+            <input id="search" type="search" placeholder="Søg, fx kebab eller 28" autocomplete="off">
+          </label>
+          <nav class="catbar__links" id="catlinks" aria-label="Kategorier"></nav>
+        </div>
+      </div>
+
+      <div class="menu-list" id="menu-list"></div>
+      <p class="menu-empty" id="menu-empty" hidden>Ingen retter matcher din søgning.</p>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__cols">
+        <p><b>Dilan's Pizzeria &amp; Café</b><br>Jagtvej 92, 2200 København N</p>
+        <p><b>Takeaway</b><br><a href="tel:+4535371909">35 37 19 09</a></p>
+        <p><b>Åbent</b><br>Hver dag 11.00–23.00</p>
+      </div>
+      <p class="footer__copy">© <span id="year">2026</span> Dilan's Pizzeria &amp; Café</p>
+    </footer>
+  </div>
+
+  <!-- Kurv -->
+  <button class="cartbtn" id="cartbtn" type="button" aria-controls="cart" aria-expanded="false" hidden>
+    <span class="cartbtn__count" id="cartcount">0</span>
+    <span>Se kurv</span>
+    <b id="carttotal-btn">0,-</b>
+  </button>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="cart" id="cart" aria-label="Kurv" aria-hidden="true">
+    <div class="cart__head">
+      <h2 class="display">Din kurv</h2>
+      <button class="cart__close" id="cartclose" type="button" aria-label="Luk kurven">✕</button>
+    </div>
+
+    <div class="cart__step" id="step-cart">
+      <ul class="cart__items" id="cartitems"></ul>
+      <p class="cart__empty" id="cartempty">Kurven er tom. Tryk på en pris for at lægge en ret i kurven.</p>
+      <div class="cart__sum"><span>I alt</span><b id="carttotal">0,-</b></div>
+
+      <form class="cart__form" id="orderform" novalidate>
+        <div class="field">
+          <label for="o-name">Navn</label>
+          <input id="o-name" name="name" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="o-phone">Telefon</label>
+          <input id="o-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel">
+        </div>
+        <div class="field">
+          <label for="o-time">Afhentning</label>
+          <select id="o-time" name="time"></select>
+        </div>
+        <div class="field">
+          <label for="o-note">Bemærkning <small>(valgfri)</small></label>
+          <textarea id="o-note" name="note" rows="2" placeholder="Fx ekstra chili eller uden løg"></textarea>
+        </div>
+        <p class="form-error" id="formerror" hidden></p>
+        <button class="btn btn--orange cart__go" type="submit">Gå videre til bestilling</button>
+        <p class="cart__fine">Du betaler, når du henter maden. Vi leverer ikke.</p>
+      </form>
+    </div>
+
+    <div class="cart__step" id="step-done" hidden>
+      <p class="done__lead">Ring til os og læs din bestilling op, så går vi i gang med det samme.</p>
+      <a class="btn btn--orange done__call" href="tel:+4535371909">Ring 35 37 19 09</a>
+      <pre class="done__summary" id="summary"></pre>
+      <div class="done__actions">
+        <button class="btn btn--ghost" id="copy" type="button">Kopiér bestilling</button>
+        <button class="btn btn--ghost" id="back" type="button">Ret bestilling</button>
+      </div>
+      <button class="done__clear" id="clear" type="button">Tøm kurven</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="menu-data.js"></script>
+  <script src="menu.js"></script>
+</body>
+</html>

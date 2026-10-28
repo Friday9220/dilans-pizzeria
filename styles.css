@@ -45,6 +45,7 @@ a { color: inherit; }
   background: var(--cream);
   border-radius: 28px;
   overflow: hidden;
+  overflow: clip; /* clip i stedet for hidden, så sticky virker */
 }
 
 .display { font-family: var(--display); font-weight: 400; line-height: .95; letter-spacing: -.01em; }
@@ -199,6 +200,7 @@ a { color: inherit; }
 }
 .lunch__list span { font-weight: 700; font-size: 19px; }
 .lunch__list small { display: block; font-weight: 400; font-size: 14px; opacity: .65; }
+.lunch__cta { margin-top: 28px; }
 .lunch__list b { font-family: var(--display); font-weight: 400; font-size: 28px; color: var(--orange-soft); }
 .lunch__visual { position: relative; height: 420px; perspective: 900px; }
 .box {
