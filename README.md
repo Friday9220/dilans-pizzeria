@@ -9,6 +9,9 @@ Siden er ren HTML, CSS og JavaScript uden byggetrin. Åbn `index.html` i en brow
 - `script.js` – scroll-animationer
 - `menu.html`, `menu.css`, `menu.js` – menu med kurv og bestilling til afhentning
 - `menu-data.js` – alle retter og priser (ret priser her)
+- `site-config.js` – forbindelse til ordre-databasen (Supabase)
+- `personale.html` – intern ordreside; åbnes kun med det hemmelige link
+- `supabase/opsaetning.sql` – opsætning af databasen (nøglen indsættes før kørsel)
 - `assets/img/` – billeder fra restauranten
 
 Priser og frokosttilbud er skrevet af fra menukortet (`assets/img/menu.jpg`).
