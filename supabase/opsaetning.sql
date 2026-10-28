@@ -10,6 +10,8 @@ create table if not exists private.settings (
   staff_key text not null check (length(staff_key) >= 24 and staff_key <> 'ERSTAT_MED_HEMMELIG_NOEGLE')
 );
 
+alter table private.settings enable row level security;
+
 create table if not exists public.orders (
   id         bigint generated always as identity primary key,
   created_at timestamptz not null default now(),
