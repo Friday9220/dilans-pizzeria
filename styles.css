@@ -75,14 +75,14 @@ a { color: inherit; }
 
 /* Nav */
 .nav {
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  display: flex; align-items: center; gap: 12px 20px;
   padding: 22px clamp(18px, 4vw, 48px);
   position: relative; z-index: 5;
 }
 .nav__logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1; }
 .logo-word { font-family: var(--display); font-size: 30px; color: var(--green); }
 .nav__logo small { font-weight: 700; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin-top: 4px; }
-.nav__links { display: flex; gap: 8px; }
+.nav__links { display: flex; gap: 8px; margin-left: auto; }
 .nav__links a {
   text-decoration: none; font-weight: 500; font-size: 15px;
   padding: 7px 16px; border: 1.5px solid var(--ink); border-radius: 999px;
@@ -187,6 +187,7 @@ a { color: inherit; }
 .way h3 { font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1; }
 .way p { color: var(--muted); }
 .way p a { color: var(--orange); font-weight: 700; }
+.way__cta { margin-top: 4px; }
 .way .note { color: var(--ink); font-weight: 700; font-size: 15px; }
 
 /* Frokost */
@@ -291,6 +292,7 @@ a { color: inherit; }
 @media (max-width: 760px) {
   .frame { margin: 8px; border-radius: 20px; }
   .nav__links { display: none; }
+  .nav__cta { margin-left: auto; }
   .ways__grid, .lunch__inner, .find, .baked__grid { grid-template-columns: 1fr; }
   .baked__img--small { width: 60%; }
   .lunch__visual { height: 300px; }
@@ -305,5 +307,4 @@ a { color: inherit; }
 }
 @media (max-width: 480px) {
   .cards { grid-template-columns: 1fr; }
-  .nav__cta { display: none; }
 }
