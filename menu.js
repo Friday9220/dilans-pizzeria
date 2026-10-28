@@ -231,6 +231,12 @@
   });
   $('back').addEventListener('click', function () { showStep('cart'); });
 
+  // Gammel "anon"-nøgle (JWT) sendes også som Bearer; ny "publishable"-nøgle kun som apikey
+  function apiHeaders() {
+    var h = { 'Content-Type': 'application/json', apikey: CFG.supabaseKey };
+    if (/^eyJ/.test(CFG.supabaseKey)) h.Authorization = 'Bearer ' + CFG.supabaseKey;
+    return h;
+  }
   // ---------- Send bestillingen til restauranten ----------
   function sendOrder(name, phone, pickup, note) {
     var btn = $('orderform').querySelector('button[type=submit]');
@@ -243,7 +249,7 @@
     btn.disabled = true; btn.textContent = 'Sender bestilling …';
     fetch(CFG.supabaseUrl.replace(/\/$/, '') + '/rest/v1/rpc/place_order', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', apikey: CFG.supabaseKey, Authorization: 'Bearer ' + CFG.supabaseKey },
+      headers: apiHeaders(),
       body: JSON.stringify({ p_name: name, p_phone: phone, p_pickup: pickup, p_note: note, p_items: items, p_total: sum })
     }).then(function (r) {
       return r.json().then(function (body) {
