@@ -101,6 +101,19 @@
       </form>
     </div>
 
+    <div class="cart__step" id="step-sent" hidden>
+      <div class="sent__badge" aria-hidden="true">✓</div>
+      <h3 class="display sent__title">Tak, <span id="sent-name"></span>!</h3>
+      <p class="done__lead">Vi har modtaget din bestilling <b>nr. <span id="sent-id"></span></b>, og køkkenet går i gang.</p>
+      <dl class="sent__facts">
+        <div><dt>Afhentning</dt><dd id="sent-time"></dd></div>
+        <div><dt>Adresse</dt><dd>Jagtvej 92, 2200 København N</dd></div>
+        <div><dt>Betaling</dt><dd>Når du henter, <span id="sent-total"></span></dd></div>
+      </dl>
+      <p class="cart__fine">Skal du ændre noget, så ring på 35 37 19 09 og oplys bestillingsnummeret.</p>
+      <button class="btn btn--ghost sent__new" id="sent-new" type="button">Ny bestilling</button>
+    </div>
+
     <div class="cart__step" id="step-done" hidden>
       <p class="done__lead">Ring til os og læs din bestilling op, så går vi i gang med det samme.</p>
       <a class="btn btn--orange done__call" href="tel:+4535371909">Ring 35 37 19 09</a>
@@ -115,6 +128,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script src="site-config.js"></script>
   <script src="menu-data.js"></script>
   <script src="menu.js"></script>
 </body>

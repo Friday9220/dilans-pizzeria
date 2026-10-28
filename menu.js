@@ -4,6 +4,8 @@
   var PHONE = '35 37 19 09';
   var OPEN = 11, CLOSE = 23; // åbent hver dag 11–23
   var STORE_KEY = 'dilans-kurv';
+  var CFG = window.DILANS_CONFIG || {};
+  var ONLINE = !!(CFG.supabaseUrl && CFG.supabaseKey); // ellers: kunden ringer bestillingen ind
 
   var $ = function (id) { return document.getElementById(id); };
   var kr = function (n) { return n.toLocaleString('da-DK') + ',-'; };
@@ -160,7 +162,7 @@
   var cartEl = $('cart');
   function openCart() {
     fillTimes();
-    showStep('cart');
+    if ($('step-sent').hidden) showStep('cart');
     cartEl.classList.add('is-open'); cartEl.setAttribute('aria-hidden', 'false');
     $('scrim').hidden = false; $('cartbtn').setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
@@ -197,6 +199,7 @@
   // Videre til bestilling
   function showStep(s) {
     $('step-cart').hidden = s !== 'cart';
+    $('step-sent').hidden = s !== 'sent';
     $('step-done').hidden = s !== 'done';
   }
   $('orderform').addEventListener('submit', function (e) {
@@ -212,6 +215,8 @@
     }
     err.hidden = true;
     var sel = $('o-time');
+    var pickup = sel.options[sel.selectedIndex].text;
+    if (ONLINE) { sendOrder(name, phone, pickup, $('o-note').value.trim()); return; }
     var lines = cart.map(function (l) {
       var it = byKey[l.key];
       return l.qty + ' × ' + label(it) + '   ' + kr(it.price * l.qty);
@@ -225,6 +230,44 @@
     cartEl.scrollTop = 0;
   });
   $('back').addEventListener('click', function () { showStep('cart'); });
+
+  // ---------- Send bestillingen til restauranten ----------
+  function sendOrder(name, phone, pickup, note) {
+    var btn = $('orderform').querySelector('button[type=submit]');
+    var err = $('formerror');
+    var items = cart.map(function (l) {
+      var it = byKey[l.key];
+      return { qty: l.qty, nr: it.nr, name: it.name, desc: it.desc, size: it.size, section: it.section, price: it.price };
+    });
+    var sum = total();
+    btn.disabled = true; btn.textContent = 'Sender bestilling …';
+    fetch(CFG.supabaseUrl.replace(/\/$/, '') + '/rest/v1/rpc/place_order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: CFG.supabaseKey, Authorization: 'Bearer ' + CFG.supabaseKey },
+      body: JSON.stringify({ p_name: name, p_phone: phone, p_pickup: pickup, p_note: note, p_items: items, p_total: sum })
+    }).then(function (r) {
+      return r.json().then(function (body) {
+        if (!r.ok) throw new Error(body && body.message ? body.message : 'Fejl');
+        return body;
+      });
+    }).then(function (id) {
+      $('sent-name').textContent = name.split(' ')[0];
+      $('sent-id').textContent = id;
+      $('sent-time').textContent = pickup;
+      $('sent-total').textContent = kr(sum);
+      cart = []; render();
+      $('o-note').value = '';
+      showStep('sent');
+      cartEl.scrollTop = 0;
+    }).catch(function (e) {
+      err.textContent = 'Bestillingen kunne ikke sendes' + (e.message && e.message !== 'Fejl' && e.message !== 'Failed to fetch' ? ': ' + e.message : '') +
+        '. Prøv igen, eller ring på 35 37 19 09.';
+      err.hidden = false;
+    }).then(function () {
+      btn.textContent = 'Send bestilling'; btn.disabled = count() === 0;
+    });
+  }
+  $('sent-new').addEventListener('click', function () { closeCart(); showStep('cart'); });
   $('copy').addEventListener('click', function () {
     var text = $('summary').textContent;
     var done = function () { toast('Bestillingen er kopieret'); };
@@ -241,6 +284,10 @@
     cart = []; render(); closeCart(); toast('Kurven er tømt');
   });
 
+  if (ONLINE) {
+    $('orderform').querySelector('button[type=submit]').textContent = 'Send bestilling';
+    document.querySelector('.cart__fine').textContent = 'Du betaler, når du henter maden. Vi leverer ikke.';
+  }
   render();
 
   // Pizzaen i toppen drejer, når man scroller

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Ordrer – Dilan's</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: var(--frame); }
+    [hidden] { display: none !important; }
+    .wrap { padding: 18px clamp(14px, 3vw, 32px) 40px; color: var(--cream); }
+    .top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-bottom: 18px; }
+    .top h1 { font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1; }
+    .top h1 span { color: var(--orange); }
+    .live { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; opacity: .8; }
+    .live .dot.is-off { background: #c0392b; box-shadow: 0 0 0 4px rgba(192,57,43,.3); }
+    .top .spacer { flex: 1; }
+    .tbtn { font: inherit; font-weight: 700; font-size: 15px; border-radius: 999px; padding: 10px 18px; cursor: pointer; border: 2px solid var(--cream); background: transparent; color: var(--cream); }
+    .tbtn.is-on { background: var(--green); border-color: var(--green); }
+    .tbtn:focus-visible, .act:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+
+    .board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .col h2 { display: flex; align-items: center; gap: 10px; font-size: 15px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; }
+    .col h2 b { background: var(--cream); color: var(--ink); border-radius: 999px; min-width: 28px; height: 28px; display: grid; place-items: center; padding: 0 8px; font-size: 14px; }
+    .col--ny h2 b { background: var(--orange); color: #fff; }
+    .list { display: grid; gap: 12px; }
+    .empty { opacity: .5; font-size: 15px; padding: 18px; border: 1.5px dashed rgba(245,239,227,.3); border-radius: 16px; text-align: center; }
+
+    .order { background: var(--cream); color: var(--ink); border-radius: 18px; padding: 16px; display: grid; gap: 10px; }
+    .col--ny .order { box-shadow: inset 0 0 0 4px var(--orange); }
+    .order.is-new { animation: flash 1.2s ease 3; }
+    .o-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .o-id { font-family: var(--display); font-size: 30px; line-height: 1; }
+    .o-pick { text-align: right; font-weight: 700; font-size: 17px; }
+    .o-pick small { display: block; font-weight: 500; font-size: 13px; color: var(--muted); }
+    .o-who { font-size: 15px; }
+    .o-who b { font-size: 17px; }
+    .o-items { list-style: none; display: grid; gap: 4px; border-top: 1.5px dashed var(--cream-2); border-bottom: 1.5px dashed var(--cream-2); padding: 10px 0; font-size: 16px; }
+    .o-items li { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; font-variant-numeric: tabular-nums; }
+    .o-items .q { font-weight: 700; }
+    .o-items .p { color: var(--muted); }
+    .o-note { background: #fff1d6; border-radius: 10px; padding: 8px 10px; font-weight: 700; }
+    .o-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .o-total { font-family: var(--display); font-size: 24px; }
+    .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+    .act { font: inherit; font-weight: 700; font-size: 15px; padding: 10px 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--ink); color: var(--cream); cursor: pointer; }
+    .act--go { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .act--ghost { background: transparent; color: var(--ink); }
+    .act--warn { background: #c0392b; border-color: #c0392b; color: #fff; }
+
+    .done { margin-top: 28px; }
+    .done summary { cursor: pointer; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; opacity: .8; }
+    .done ul { list-style: none; margin-top: 10px; display: grid; gap: 6px; }
+    .done li { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; background: rgba(245,239,227,.08); border-radius: 12px; padding: 10px 14px; font-size: 15px; }
+    .done li .st { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; border-radius: 999px; padding: 3px 8px; background: rgba(245,239,227,.15); }
+    .done li button { margin-left: auto; font: inherit; font-size: 13px; background: none; border: 1.5px solid rgba(245,239,227,.4); color: var(--cream); border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+
+    .gate { max-width: 520px; margin: 12vh auto 0; text-align: center; display: grid; gap: 14px; }
+    .gate h1 { font-family: var(--display); font-weight: 400; font-size: 44px; }
+    .err { background: #c0392b; color: #fff; border-radius: 12px; padding: 10px 14px; font-weight: 700; margin-bottom: 14px; }
+
+    @keyframes flash { 50% { transform: scale(1.03); box-shadow: inset 0 0 0 4px var(--orange), 0 0 0 8px rgba(239,123,38,.45); } }
+    @media (max-width: 900px) { .board { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .order.is-new { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="gate" id="gate" hidden>
+      <h1>Kun for personale</h1>
+      <p id="gate-msg">Åbn siden med det hemmelige link, du har fået af ejeren.</p>
+    </div>
+
+    <div id="app" hidden>
+      <header class="top">
+        <h1>Dilan<span>'s</span> ordrer</h1>
+        <span class="live"><span class="dot" id="livedot"></span> <span id="livetext">Henter …</span></span>
+        <span class="spacer"></span>
+        <button class="tbtn" id="sound" type="button">Slå lyd til</button>
+      </header>
+      <p class="err" id="err" hidden></p>
+
+      <div class="board">
+        <section class="col col--ny"><h2>Nye <b id="c-ny">0</b></h2><div class="list" id="l-ny"></div></section>
+        <section class="col"><h2>I gang <b id="c-gang">0</b></h2><div class="list" id="l-gang"></div></section>
+        <section class="col"><h2>Klar til afhentning <b id="c-klar">0</b></h2><div class="list" id="l-klar"></div></section>
+      </div>
+
+      <details class="done">
+        <summary>Afsluttede i dag (<span id="c-done">0</span>)</summary>
+        <ul id="l-done"></ul>
+      </details>
+    </div>
+  </div>
+
+  <script src="site-config.js"></script>
+  <script>
+  (function () {
+    var CFG = window.DILANS_CONFIG || {};
+    var KEY = decodeURIComponent((location.hash || '').slice(1));
+    var $ = function (id) { return document.getElementById(id); };
+    var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var kr = function (n) { return Number(n).toLocaleString('da-DK') + ',-'; };
+
+    if (!CFG.supabaseUrl || !CFG.supabaseKey) {
+      $('gate').hidden = false;
+      $('gate-msg').textContent = 'Bestilling på hjemmesiden er ikke slået til endnu.';
+      return;
+    }
+    if (KEY.length < 24) { $('gate').hidden = false; return; }
+
+    function rpc(fn, body) {
+      return fetch(CFG.supabaseUrl.replace(/\/$/, '') + '/rest/v1/rpc/' + fn, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: CFG.supabaseKey, Authorization: 'Bearer ' + CFG.supabaseKey },
+        body: JSON.stringify(body)
+      }).then(function (r) {
+        return r.text().then(function (t) {
+          var b = t ? JSON.parse(t) : null;
+          if (!r.ok) throw new Error(b && b.message ? b.message : 'Fejl ' + r.status);
+          return b;
+        });
+      });
+    }
+
+    // ---------- Lyd ----------
+    var audio = null, soundOn = false;
+    $('sound').addEventListener('click', function () {
+      soundOn = !soundOn;
+      if (soundOn && !audio) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+      if (audio && audio.state === 'suspended') audio.resume();
+      this.classList.toggle('is-on', soundOn);
+      this.textContent = soundOn ? 'Lyd er slået til' : 'Slå lyd til';
+      if (soundOn) { ding(); keepAwake(); }
+    });
+    function ding() {
+      if (!soundOn || !audio) return;
+      [0, 0.22, 0.44].forEach(function (t, i) {
+        var o = audio.createOscillator(), g = audio.createGain();
+        o.frequency.value = [880, 1175, 1568][i];
+        g.gain.setValueAtTime(0.0001, audio.currentTime + t);
+        g.gain.exponentialRampToValueAtTime(0.4, audio.currentTime + t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, audio.currentTime + t + 0.35);
+        o.connect(g); g.connect(audio.destination);
+        o.start(audio.currentTime + t); o.stop(audio.currentTime + t + 0.4);
+      });
+    }
+    var lock = null;
+    function keepAwake() {
+      if (!('wakeLock' in navigator) || lock) return;
+      navigator.wakeLock.request('screen').then(function (l) { lock = l; l.addEventListener('release', function () { lock = null; }); }, function () {});
+    }
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && soundOn) keepAwake(); });
+
+    // ---------- Visning ----------
+    var known = null, orders = [], confirmCancel = null;
+    function ago(ts) {
+      var m = Math.round((Date.now() - new Date(ts).getTime()) / 60000);
+      if (m < 1) return 'lige nu';
+      if (m < 60) return m + ' min siden';
+      return Math.floor(m / 60) + ' t ' + (m % 60) + ' min siden';
+    }
+    function clock(ts) { var d = new Date(ts); return ('0' + d.getHours()).slice(-2) + '.' + ('0' + d.getMinutes()).slice(-2); }
+    function itemLabel(it) {
+      return (it.nr ? it.nr + '. ' : '') + (it.section ? it.section + ': ' : '') + (it.name || '') + (it.size ? ' (' + it.size + ')' : '');
+    }
+    var NEXT = {
+      'ny':     [['i gang', 'Start', 'act--go'], ['annulleret', 'Annullér', 'act--ghost']],
+      'i gang': [['klar', 'Klar', 'act--go'], ['ny', 'Tilbage', 'act--ghost']],
+      'klar':   [['afhentet', 'Afhentet', 'act--go'], ['i gang', 'Tilbage', 'act--ghost']]
+    };
+    function card(o, fresh) {
+      var items = (o.items || []).map(function (it) {
+        return '<li><span class="q">' + esc(it.qty) + ' ×</span><span>' + esc(itemLabel(it)) + '</span><span class="p">' + kr((it.price || 0) * (it.qty || 1)) + '</span></li>';
+      }).join('');
+      var acts = (NEXT[o.status] || []).map(function (a) {
+        var warn = a[0] === 'annulleret' && confirmCancel === o.id;
+        return '<button class="act ' + (warn ? 'act--warn' : a[2]) + '" data-id="' + o.id + '" data-to="' + a[0] + '">' + (warn ? 'Tryk igen for at annullere' : a[1]) + '</button>';
+      }).join('');
+      return '<article class="order' + (fresh ? ' is-new' : '') + '">' +
+        '<div class="o-head"><span class="o-id">#' + o.id + '</span>' +
+        '<span class="o-pick">' + esc(o.pickup) + '<small>Bestilt kl. ' + clock(o.created_at) + ' · ' + ago(o.created_at) + '</small></span></div>' +
+        '<div class="o-who"><b>' + esc(o.name) + '</b> · ' + esc(o.phone) + '</div>' +
+        '<ul class="o-items">' + items + '</ul>' +
+        (o.note ? '<div class="o-note">' + esc(o.note) + '</div>' : '') +
+        '<div class="o-foot"><span class="o-total">' + kr(o.total) + '</span><div class="acts">' + acts + '</div></div>' +
+        '</article>';
+    }
+    function draw(freshIds) {
+      var groups = { 'ny': [], 'i gang': [], 'klar': [], done: [] };
+      orders.forEach(function (o) { (groups[o.status] || groups.done).push(o); });
+      // Ældste først i de aktive kolonner
+      ['ny', 'i gang', 'klar'].forEach(function (s) { groups[s].sort(function (a, b) { return a.id - b.id; }); });
+      [['ny', 'ny'], ['i gang', 'gang'], ['klar', 'klar']].forEach(function (p) {
+        var list = groups[p[0]];
+        $('c-' + p[1]).textContent = list.length;
+        $('l-' + p[1]).innerHTML = list.length ? list.map(function (o) { return card(o, freshIds.indexOf(o.id) !== -1); }).join('') : '<p class="empty">Ingen ordrer</p>';
+      });
+      $('c-done').textContent = groups.done.length;
+      $('l-done').innerHTML = groups.done.map(function (o) {
+        return '<li><b>#' + o.id + '</b> ' + esc(o.name) + ' · ' + kr(o.total) + ' <span class="st">' + esc(o.status) + '</span>' +
+          '<button data-id="' + o.id + '" data-to="klar">Fortryd</button></li>';
+      }).join('');
+      var n = groups['ny'].length;
+      document.title = (n ? '(' + n + ') ' : '') + "Ordrer – Dilan's";
+    }
+
+    function load() {
+      return rpc('staff_orders', { p_key: KEY, p_hours: 18 }).then(function (list) {
+        orders = list || [];
+        var ids = orders.map(function (o) { return o.id; });
+        var fresh = known ? ids.filter(function (id) { return known.indexOf(id) === -1; }) : [];
+        known = ids;
+        draw(fresh);
+        if (fresh.length) ding();
+        $('err').hidden = true;
+        $('livedot').classList.remove('is-off');
+        var d = new Date();
+        $('livetext').textContent = 'Opdateret kl. ' + ('0' + d.getHours()).slice(-2) + '.' + ('0' + d.getMinutes()).slice(-2) + '.' + ('0' + d.getSeconds()).slice(-2);
+        $('app').hidden = false;
+      }).catch(function (e) {
+        if (/Adgang/.test(e.message)) {
+          $('app').hidden = true; $('gate').hidden = false;
+          $('gate-msg').textContent = 'Linket er ikke gyldigt. Bed ejeren om det nye link.';
+          stop = true; return;
+        }
+        $('app').hidden = false;
+        $('livedot').classList.add('is-off');
+        $('livetext').textContent = 'Ingen forbindelse, prøver igen …';
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-to]');
+      if (!b) return;
+      var id = Number(b.dataset.id), to = b.dataset.to;
+      if (to === 'annulleret' && confirmCancel !== id) { confirmCancel = id; draw([]); return; }
+      confirmCancel = null;
+      var o = orders.filter(function (x) { return x.id === id; })[0];
+      if (o) { o.status = to; draw([]); }
+      rpc('staff_set_status', { p_key: KEY, p_id: id, p_status: to }).catch(function (err) {
+        $('err').textContent = 'Kunne ikke gemme ændringen: ' + err.message; $('err').hidden = false;
+      }).then(load);
+    });
+
+    var stop = false;
+    (function tick() { if (stop) return; load().then(function () { setTimeout(tick, 7000); }); })();
+    setInterval(function () { if (!stop && orders.length) draw([]); }, 30000); // opdater "x min siden"
+  })();
+  </script>
+</body>
+</html>
