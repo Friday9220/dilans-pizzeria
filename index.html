@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dilan's Pizzeria &amp; Café – Jagtvej 92, København N</title>
+  <meta name="description" content="Dilan's Pizzeria & Café på Jagtvej 92. Pizza, durum, burgere og hjemmebagt brød. Takeaway eller spis hos os. Åbent hver dag 11–23.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="frame">
+
+    <!-- NAVIGATION -->
+    <header class="nav">
+      <a class="nav__logo" href="#top" aria-label="Dilan's – til toppen">
+        <span class="logo-word">Dilan<span class="o">'s</span></span>
+        <small>Pizzeria &amp; Café</small>
+      </a>
+      <nav class="nav__links" aria-label="Hovedmenu">
+        <a href="#menu">Menu</a>
+        <a href="#saadan">Takeaway</a>
+        <a href="#saadan">Spis her</a>
+        <a href="#find-os">Find os</a>
+      </nav>
+      <a class="btn btn--orange nav__cta" href="tel:+4535371909">Ring og bestil</a>
+    </header>
+
+    <main id="top">
+
+      <!-- HERO -->
+      <section class="hero">
+        <h1 class="hero__title" aria-label="Dilan's">
+          <span class="hero__word">DILAN'S</span>
+        </h1>
+        <div class="hero__stage">
+          <div class="hero__blob"></div>
+          <img class="hero__pizza" data-spin src="assets/img/pizza-jalapeno.webp" alt="Pizza med oksekød, jalapeños og rødløg">
+          <div class="badge hero__badge" aria-hidden="true">
+            <svg viewBox="0 0 200 200">
+              <defs><path id="circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+              <text><textPath href="#circle">PIZZERIA &amp; CAFÉ • JAGTVEJ 92 • NØRREBRO • </textPath></text>
+            </svg>
+            <span class="badge__center">D</span>
+          </div>
+        </div>
+        <div class="hero__bottom">
+          <p class="hero__lead reveal">Pizza, durum og hjemmebagt brød på Jagtvej.<br>Tag den med hjem, eller bliv og spis hos os.</p>
+          <div class="hero__actions reveal">
+            <a class="btn btn--orange" href="tel:+4535371909">Ring: 35 37 19 09</a>
+            <a class="btn btn--ghost" href="#menu">Se menuen</a>
+          </div>
+          <p class="hero__hours reveal"><span class="dot"></span> Åbent hver dag 11.00–23.00</p>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <section class="marquee" aria-hidden="true">
+        <div class="marquee__row" data-dir="-1">
+          <span>PIZZA</span><span class="o">TAKEAWAY</span><span>PIZZA</span><span class="g">SPIS HER</span><span>PIZZA</span><span class="o">TAKEAWAY</span><span>PIZZA</span><span class="g">SPIS HER</span>
+        </div>
+        <div class="marquee__row" data-dir="1">
+          <span class="g">DURUM</span><span>BURGER</span><span class="o">DILAN'S</span><span>FROKOST</span><span class="g">DURUM</span><span>BURGER</span><span class="o">DILAN'S</span><span>FROKOST</span>
+        </div>
+        <div class="marquee__row" data-dir="-1">
+          <span>TAKEAWAY</span><span class="o">PIZZA</span><span>SPIS HER</span><span class="g">PIZZA</span><span>TAKEAWAY</span><span class="o">PIZZA</span><span>SPIS HER</span><span class="g">PIZZA</span>
+        </div>
+        <img class="marquee__pizza" data-spin src="assets/img/pizza-parma.webp" alt="">
+      </section>
+
+      <!-- MENU HIGHLIGHTS -->
+      <section class="section menu" id="menu">
+        <div class="section__head">
+          <h2 class="display reveal">Husets <span class="o">favoritter</span></h2>
+          <p class="reveal">Over 60 pizzaer – i almindelig, deep pan eller familie­størrelse. Her er et par af dem, gæsterne kommer tilbage efter.</p>
+        </div>
+        <div class="cards">
+          <article class="card reveal">
+            <span class="card__nr">5</span>
+            <h3>Margherita</h3>
+            <p>Tomatsauce og ost</p>
+            <dl class="card__prices">
+              <div><dt>Alm.</dt><dd>75,-</dd></div>
+              <div><dt>Deep</dt><dd>90,-</dd></div>
+              <div><dt>Fam.</dt><dd>140,-</dd></div>
+            </dl>
+          </article>
+          <article class="card reveal">
+            <span class="card__nr">3</span>
+            <h3>København</h3>
+            <p>Tomatsauce, ost, pepperoni og champignon</p>
+            <dl class="card__prices">
+              <div><dt>Alm.</dt><dd>85,-</dd></div>
+              <div><dt>Deep</dt><dd>100,-</dd></div>
+              <div><dt>Fam.</dt><dd>161,-</dd></div>
+            </dl>
+          </article>
+          <article class="card reveal">
+            <span class="card__nr">28</span>
+            <h3>Dilan</h3>
+            <p>Tomatsauce, ost, tun og rejer</p>
+            <dl class="card__prices">
+              <div><dt>Alm.</dt><dd>90,-</dd></div>
+              <div><dt>Deep</dt><dd>108,-</dd></div>
+              <div><dt>Fam.</dt><dd>170,-</dd></div>
+            </dl>
+            <span class="card__tag">Husets egen</span>
+          </article>
+          <article class="card reveal">
+            <span class="card__nr">22</span>
+            <h3>Amore</h3>
+            <p>Tomatsauce, ost, pepperoni, skinke og bacon</p>
+            <dl class="card__prices">
+              <div><dt>Alm.</dt><dd>97,-</dd></div>
+              <div><dt>Deep</dt><dd>112,-</dd></div>
+              <div><dt>Fam.</dt><dd>184,-</dd></div>
+            </dl>
+          </article>
+        </div>
+        <p class="menu__more reveal">
+          Durum, burgere, salater, pasta, a la carte og børnemenu.
+          <a href="assets/img/menu.jpg" target="_blank" rel="noopener">Se hele menuen →</a>
+        </p>
+      </section>
+
+      <!-- TAKEAWAY / SPIS HER -->
+      <section class="section ways" id="saadan">
+        <h2 class="display reveal">Hent den.<br><span class="o">Eller bliv</span> og spis.</h2>
+        <div class="ways__grid">
+          <article class="way reveal">
+            <div class="way__img"><img src="assets/img/pizza-boks.jpg" alt="Pizza med parmaskinke og cherrytomater i en takeaway-æske" loading="lazy"></div>
+            <div class="way__body">
+              <span class="pill pill--orange">Takeaway</span>
+              <h3>Ring, og den er klar</h3>
+              <p>Ring på <a href="tel:+4535371909">35 37 19 09</a>, så står din mad klar, når du kommer forbi Jagtvej 92. Du kan også bare kigge ind og bestille ved disken.</p>
+              <p class="note">Vi tilbyder kun afhentning, ikke levering.</p>
+            </div>
+          </article>
+          <article class="way reveal">
+            <div class="way__img"><img src="assets/img/restaurant-fuld.jpg" alt="Gæster spiser i restauranten" loading="lazy"></div>
+            <div class="way__body">
+              <span class="pill pill--green">Spis her</span>
+              <h3>Der er altid en plads</h3>
+              <p>Masser af borde og sofaer i en lys restaurant med udsigt til Jagtvej. Tag vennerne, familien eller bare dig selv med.</p>
+              <p class="note">Ingen bordbestilling nødvendig.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- FROKOST -->
+      <section class="lunch">
+        <div class="lunch__inner">
+          <div class="lunch__text">
+            <span class="pill pill--orange">Mellem kl. 11–14</span>
+            <h2 class="display reveal">Frokost&shy;tilbud</h2>
+            <ul class="lunch__list">
+              <li class="reveal"><span>Pizza <small>nr. 1–14</small></span><b>69,-</b></li>
+              <li class="reveal"><span>Durum rulle <small>kebab / kylling / falafel</small></span><b>55,-</b></li>
+              <li class="reveal"><span>Pizza sandwich <small>kebab / kylling / falafel</small></span><b>65,-</b></li>
+              <li class="reveal"><span>Pitabrød <small>kebab / kylling / falafel</small></span><b>37,-</b></li>
+              <li class="reveal"><span>Husets bøf <small>med salat, pommes frites og bearnaise</small></span><b>75,-</b></li>
+              <li class="reveal"><span>Box <small>kebab / kylling / falafel</small></span><b>55,-</b></li>
+            </ul>
+          </div>
+          <div class="lunch__visual">
+            <div class="box" data-float>
+              <div class="box__lid"><span>DILAN'S</span></div>
+            </div>
+            <div class="lunch__shadow"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAGT HER -->
+      <section class="section baked">
+        <div class="baked__grid">
+          <div class="baked__img reveal"><img data-parallax="0.08" src="assets/img/broed.jpg" alt="Hjemmebagte brød i vinduet" loading="lazy"></div>
+          <div class="baked__side">
+            <h2 class="display reveal">Bagt <span class="g">her</span>.<br>Hver dag.</h2>
+            <p class="reveal">Brødet til din pita og durum bliver bagt i huset. Du kan se det ligge og hæve i vinduet ud mod Jagtvej.</p>
+            <div class="baked__img baked__img--small reveal"><img data-parallax="-0.06" src="assets/img/pizza-bord.jpg" alt="Pizza med oksekød og jalapeños" loading="lazy"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FIND OS -->
+      <section class="section find" id="find-os">
+        <div class="find__img reveal"><img src="assets/img/facade.jpg" alt="Dilan's facade på hjørnet af Jagtvej" loading="lazy"></div>
+        <div class="find__info">
+          <h2 class="display reveal">Find <span class="o">os</span></h2>
+          <dl class="find__list">
+            <div class="reveal"><dt>Adresse</dt><dd><a href="https://maps.google.com/?q=Jagtvej+92,+2200+K%C3%B8benhavn+N" target="_blank" rel="noopener">Jagtvej 92<br>2200 København N</a></dd></div>
+            <div class="reveal"><dt>Åbent</dt><dd>Hver dag<br>11.00–23.00</dd></div>
+            <div class="reveal"><dt>Telefon</dt><dd><a href="tel:+4535371909">35 37 19 09</a></dd></div>
+          </dl>
+          <a class="btn btn--orange reveal" href="https://maps.google.com/?q=Jagtvej+92,+2200+K%C3%B8benhavn+N" target="_blank" rel="noopener">Vis vej</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer__big">
+        <div class="footer__blob"></div>
+        <span class="footer__word">DILAN'S</span>
+        <img class="footer__pizza" data-spin src="assets/img/pizza-parma.webp" alt="">
+      </div>
+      <p class="footer__slogan display">Tag en skive. Del en skive.</p>
+      <div class="footer__cols">
+        <p><b>Dilan's Pizzeria &amp; Café</b><br>Jagtvej 92, 2200 København N</p>
+        <p><b>Takeaway</b><br><a href="tel:+4535371909">35 37 19 09</a></p>
+        <p><b>Åbent</b><br>Hver dag 11.00–23.00</p>
+      </div>
+      <p class="footer__copy">© <span id="year">2026</span> Dilan's Pizzeria &amp; Café</p>
+    </footer>
+  </div>
+
+  <a class="call-fab" href="tel:+4535371909" aria-label="Ring og bestil">📞 Ring og bestil</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
